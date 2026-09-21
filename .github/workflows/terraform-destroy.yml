@@ -45,7 +45,7 @@ jobs:
       - name: Init
         run: terraform init -input=false
 
-      - name: Destroy
+      - name: Destroy Infrastructure
         run: terraform destroy -input=false -auto-approve
         env:
           TF_VAR_bastion_allowed_ip: ${{ vars.BASTION_ALLOWED_IP}}
