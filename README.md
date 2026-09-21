@@ -183,6 +183,8 @@ a-zA-Z0-9. _-:/()#,@[]+=&;{}!$*`. The cause was a single apostrophe in
 echo "<h1>Week 5 - Terraform-built, reachable</h1>" > index.html
 ```
 
+You can run the bash line above if you don't have an html file. I personally added the index.html file from week 4 before running any of the commands.
+
 ```hcl
 resource "aws_s3_object" "index" {
   bucket       = aws_s3_bucket.milestone.id

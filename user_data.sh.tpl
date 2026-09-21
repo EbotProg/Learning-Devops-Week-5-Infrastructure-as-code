@@ -34,11 +34,11 @@ aws ecr get-login-password --region eu-north-1 | docker login --username AWS --p
 cat > .env <<ENVEOF
 ECR_REGISTRY=${account_id}.dkr.ecr.eu-north-1.amazonaws.com
 IMAGE_TAG=latest
-MONGO_ROOT_PASSWORD=ChangeThisBeforeWeek6
-PARSE_MASTER_KEY=ChangeThisBeforeWeek6
+MONGO_ROOT_PASSWORD=root
+PARSE_MASTER_KEY=masterkey
 PARSE_APP_ID=myAppId
 DASHBOARD_USER=admin
-DASHBOARD_PASSWORD=ChangeThisBeforeWeek6
+DASHBOARD_PASSWORD=admin
 ENVEOF
 chown ubuntu:ubuntu .env
 chmod 600 .env
