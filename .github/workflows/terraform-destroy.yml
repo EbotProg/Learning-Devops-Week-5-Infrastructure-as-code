@@ -1,0 +1,51 @@
+name: Terraform Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "destroy" to confirm'
+        required: true
+        type: string
+
+concurrency:
+  group: terraform-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  AWS_REGION: eu-north-1
+  TF_VERSION: 1.11.0
+
+defaults:
+  run:
+    working-directory: .
+
+jobs:
+  destroy:
+    name: Destroy
+    runs-on: ubuntu-latest
+    if: inputs.confirm == 'destroy'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Init
+        run: terraform init -input=false
+
+      - name: Destroy
+        run: terraform destroy -input=false -auto-approve
+        env:
+          TF_VAR_bastion_allowed_ip: ${{ vars.BASTION_ALLOWED_IP}}
