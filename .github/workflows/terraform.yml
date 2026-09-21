@@ -67,7 +67,7 @@ jobs:
         run: terraform init -input=false
 
       - name: Validate
-        run: terraform Validate
+        run: terraform validate
 
       - name: Plan
         run: terraform plan -input=false -out=tfplan
