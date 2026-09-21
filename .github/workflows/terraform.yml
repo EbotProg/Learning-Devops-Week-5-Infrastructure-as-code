@@ -24,10 +24,6 @@ env:
   BUCKET: ebotprog-terraform-state
   DYNAMODB_TABLE: terraform-locks
 
-defaults:
-  run:
-    working-directory: week5
-
 jobs:
   plan:
     name: Plan
@@ -83,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: week5/tfplan
+          path: tfplan
           retention-days: 1
 
   apply:
@@ -113,7 +109,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: week5
+          path: .
 
       - name: Apply
         run: terraform apply -input=false tfplan
