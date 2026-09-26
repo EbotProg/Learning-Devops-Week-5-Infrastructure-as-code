@@ -209,7 +209,7 @@ git add -A && git commit -m "Format with terraform fmt" && git push
     echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+' | awk '{ while (length($0) % 4) $0 = $0 "="; print }' | base64 -d | jq '{sub, aud, iss}'
 ```
 
-**Confirm what's actually on disk before an apply step :**
+**Confirm what's actually on disk before an apply step:**
 
 ```yaml
 - name: Debug - list working directory
